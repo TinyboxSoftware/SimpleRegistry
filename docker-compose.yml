@@ -4,21 +4,24 @@ services:
     image: registry:2
     ports:
       - '5000:5000'
-    environment:
-      - REGISTRY_HTTP_TLS_CERTIFICATE=/server.pem
-      - REGISTRY_HTTP_TLS_KEY=/server.key
+    # environment:
+    #   - REGISTRY_HTTP_TLS_CERTIFICATE=/server.pem
+    #   - REGISTRY_HTTP_TLS_KEY=/server.key
     volumes:
-      - ./certs/server.key:/server.key:ro
+      - ./certs/server.key:/server.key:ro 
       - ./certs/server.pem:/server.pem:ro
       - ./images:/config/images:rw
   browser:
     image: klausmeyer/docker-registry-browser:1.5.0
     ports:
       - '5001:8080'
+      - '5002:8443'
     environment:
-      - DOCKER_REGISTRY_URL=http://localhost:5000
-      - SSL_CERT_PATH=/server.pem
-      - SSL_KEY_PATH=/server.key
+      - DOCKER_REGISTRY_URL=http://registry:5000
+      # - NO_SSL_VERIFICATION=true
+      # - SSL_CERT_PATH=/server.pem
+      # - SSL_KEY_PATH=/server.key
     volumes:
       - ./certs/server.key:/server.key:ro
       - ./certs/server.pem:/server.pem:ro
+      - ./certs/server.pem:/etc/docker/certs.d/
