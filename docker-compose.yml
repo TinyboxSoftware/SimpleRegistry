@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  registry:
+    image: registry:2
+    ports:
+      - '5000:5000'
+    environment:
+      - REGISTRY_HTTP_TLS_CERTIFICATE=/server.pem
+      - REGISTRY_HTTP_TLS_KEY=/server.key
+    volumes:
+      - ./certs/server.key:/server.key:ro
+      - ./certs/server.pem:/server.pem:ro
+      - ./images:/config/images:rw
+  browser:
+    image: klausmeyer/docker-registry-browser:1.5.0
+    ports:
+      - '5001:8080'
+    environment:
+      - DOCKER_REGISTRY_URL=http://localhost:5000
+      - SSL_CERT_PATH=/server.pem
+      - SSL_KEY_PATH=/server.key
+    volumes:
+      - ./certs/server.key:/server.key:ro
+      - ./certs/server.pem:/server.pem:ro

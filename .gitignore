@@ -1,0 +1,5 @@
+# certificate files
+cert.crt
+req.csr 
+server.key 
+server.pem
