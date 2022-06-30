@@ -3,7 +3,7 @@ a simple setup for a docker registry that includes a web-based browser and authe
 
 ## Todos
 - [ ] Template Setup
-  - [x] Configure SSL (self signed is fine, it will go through NGINX + a separate cert) 
+  - [ ] Configure SSL ([self signed is fine](https://www.techrepublic.com/article/how-to-deploy-self-hosted-docker-registry-self-signed-certificates/), it will go through NGINX + a separate cert) 
   - [ ] Configure authentication (registry auth should pass through to browser)
   - [ ] Investigate [docker_auth](https://github.com/cesanta/docker_auth) for better authentication
 - [ ] Documentation Setup
